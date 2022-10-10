@@ -1,29 +1,21 @@
-const numbersBtn = document.querySelectorAll('[data-num]');
-const operatorsBtn = document.querySelectorAll('[data-operator]');
-const equalBtn = document.getElementById('equal');
-const clearBtn = document.getElementById('clear');
-const deleteBtn = document.getElementById('delete');
-const decimalBtn = document.getElementById('decimal');
-const prevScreen = document.getElementById('prev');
-const currentScreen = document.getElementById('cur');
+const buttonPad = document.getElementById('numButtons');
+const operatorsBtn = document.querySelectorAll('.operatorBtn');
+const equalBtn = document.querySelector('.equalBtn');
+const clearBtn = document.querySelector('.clear');
+const deleteBtn = document.querySelector('.delete');
+const decimalBtn = document.querySelector('.decimalBtn');
+const prevScreen = document.querySelector('.prev');
+const currentScreen = document.querySelector('.current');
 
-clearBtn.addEventListener('click', clearScreen);
-deleteBtn.addEventListener('click', deleteNumber);
-equalBtn.addEventListener('click', solve);
-decimal.addEventListener('click', addDecimal);
+clearBtn.onclick = () => {clearScreen();};
+deleteBtn.onlick = () => {deleteNumber();};
+equalBtn.onclick = () => {solve();};
+decimalBtn.onclick = () => {addDecimal();};
 
-let firstNumber = '';
-let secondNumber = '';
+let firstNum = '';
+let secondNum = '';
 let shouldReset = false;
-let currentOperation = null;
-
-numbersBtn.forEach(btn => {
-    btn.addEventListener('click', () => appendNum(btn.textContent));
-});
-
-operatorsBtn.forEach(btn => {
-    btn.addEventListener('click', () => addOperator(btn.textContent));
-});
+let curOperator = null;
 
 function appendNum(number) {
     if (currentScreen.textContent==='0' || shouldReset) {
@@ -33,10 +25,10 @@ function appendNum(number) {
 }
 
 function addOperator(operator) {
-    if (currentOperation!==null) solve();
-    firstNumber = currentScreen.textContent;
-    currentOperation = operator;
-    prevScreen.textContent = `${firstNumber} ${currentOperation}`;
+    if (curOperator!==null) solve();
+    firstNum = currentScreen.textContent;
+    curOperator = operator;
+    prevScreen.textContent = `${firstNum} ${curOperator}`;
     shouldReset = true;
 }
 
@@ -48,9 +40,9 @@ function resetScreen() {
 function clearScreen() {
     currentScreen.textContent = '0';
     prevScreen.textContent = '';
-    firstNumber = '';
-    secondNumber = '';
-    currentOperation = null;
+    firstNum = '';
+    secondNum = '';
+    curOperator = null;
 }
 
 function addDecimal() {
@@ -76,20 +68,24 @@ function divide(a, b) {
 }
 
 function solve() {
-    if (currentOperation===null || shouldReset) return;
-    if (currentOperation==='÷' && currentScreen.textContent==='0') {
+    if (curOperator===null || shouldReset) return;
+    if (curOperator==='÷' && currentScreen.textContent==='0') {
         alert("Cant't divide by zero");
         return;
     }
-    secondNumber = currentScreen.textContent;
-    currentScreen.textContent = round(operate(firstNumber, secondNumber, currentOperation));
-    prevScreen.textContent = `${firstNumber} ${currentOperation} ${secondNumber} =`;
-    currentOperation = null;
+    secondNum = currentScreen.textContent;
+    currentScreen.textContent = round(operate(firstNum, secondNum, curOperator));
+    prevScreen.textContent = `${firstNum} ${curOperator} ${secondNum} =`;
+    curOperator = null;
 }
 
 function deleteNumber() {
-    currentScreen.textContent = currentScreen.textContent.toString().slice(0, -1);
+    currentScreen.textContent = currentScreen.textContent.slice(0, -1);
 }
+
+operatorsBtn.forEach(btn => {
+    btn.onclick = () => {addOperator(btn.textContent);}
+});
 
 function operate(a, b, operator) {
     if (operator==='+') return add(a, b);
@@ -100,4 +96,11 @@ function operate(a, b, operator) {
 
 function round(number) {
     return Math.round(number*1000)/1000;
+}
+
+for (let i = 0; i < 10; i++) {
+    const btn = document.createElement('button');
+    btn.onclick = () => {appendNum(i);};
+    btn.textContent = i;
+    buttonPad.appendChild(btn);
 }

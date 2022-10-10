@@ -9,37 +9,23 @@
     </head>
     <body>
         <script src="script.js" defer></script>
-        <div class="main">
-            <div class="calculator">
-                <div class="screen">
-                    <div class="last" id="prev"></div>
-                    <div class="current" id="cur">0</div>
-                </div>
-                <div class="special">
-                    <button class="btn clear" id="clear">CLEAR</button>
-                    <button class="btn delete" id="delete">DELETE</button>
-                </div>
-                <div class="buttons">
-                    <button class="btn" data-num>7</button>
-                    <button class="btn" data-num>8</button>
-                    <button class="btn" data-num>9</button>
-                    <button class="btn" data-operator>÷</button>
-
-                    <button class="btn" data-num>4</button>
-                    <button class="btn" data-num>5</button>
-                    <button class="btn" data-num>6</button>
-                    <button class="btn" data-operator>×</button>
-
-                    <button class="btn" data-num>1</button>
-                    <button class="btn" data-num>2</button>
-                    <button class="btn" data-num>3</button>
-                    <button class="btn" data-operator>-</button>
-
-                    <button class="btn" id="decimal">.</button>
-                    <button class="btn" data-num>0</button>
-                    <button class="btn" id="equal">=</button>
-                    <button class="btn" data-operator>+</button>
-                </div>
+        <div id="calculator">
+            <div id="screen">
+                <div class="prev"></div>
+                <div class="current">0</div>
+            </div>
+            <div id="specialButtons">
+                <button class="clear">CLEAR</button>
+                <button class="delete">DELETE</button>
+            </div>
+            <div id="numButtons"></div>
+            <div id="operatorButtons">
+                <button class="operatorBtn">+</button>
+                <button class="operatorBtn">-</button>
+                <button class="operatorBtn">×</button>
+                <button class="operatorBtn">÷</button>
+                <button class="decimalBtn">.</button>
+                <button class="equalBtn">=</button>
             </div>
         </div>
     </body>
